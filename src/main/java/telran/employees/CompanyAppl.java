@@ -6,7 +6,7 @@ import telran.view.*;
 import java.util.*;
 public class CompanyAppl {
 
-	private static final String FILE_NAME = "employeesTest.data";
+	protected static final String FILE_NAME = "employeesTest.data";
 
 	public static void main(String[] args) {
 		Company company = new CompanyMapsImpl();

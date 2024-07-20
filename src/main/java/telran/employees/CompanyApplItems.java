@@ -2,6 +2,7 @@ package telran.employees;
 
 import java.util.*;
 
+import telran.io.Persistable;
 import telran.view.InputOutput;
 import telran.view.Item;
 //public void addEmployee(Employee empl) ;
@@ -41,6 +42,7 @@ static void addEmployee(InputOutput io) {
 	default -> null;
 	};
 	company.addEmployee(result);
+	((Persistable) company).save(CompanyAppl.FILE_NAME);
 	io.writeLine("Employee has been added");
 }
 private static Employee getSalesPerson(Employee empl, InputOutput io) {
@@ -71,20 +73,45 @@ private static Employee readEmployee(InputOutput io) {
 	int basicSalary = io.readNumberRange("Enter basic salary", "Wrong basic salary", 2000, 20000).intValue();
 	String department = io.readStringOptions("Enter department " + departments, "Wrong department", departments);
 	return new Employee(id, basicSalary, department);
-}
-static void getEmployee(InputOutput io) {
+	
 	
 }
+private static long readId(InputOutput io) {
+	long id = io.readLong("Enter employee ID", "Invalid ID");
+	return id;
+}
+static void getEmployee( InputOutput io) {
+		long id = readId(io);
+	    Employee employee = company.getEmployee(id);
+	    if (employee == null) {
+	        io.writeLine("Employee not found");
+	    } else {
+	        io.writeLine(employee.toString());
+	    }
+}
+
+
 static void removeEmployee(InputOutput io) {
-	
-}
+	long id = readId(io);
+		try {
+	        Employee employee = company.removeEmployee(id);
+	        io.writeLine("Employee was successfully deleted: " + employee);
+	       
+	        ((Persistable) company).save(CompanyAppl.FILE_NAME);
+	    } catch (NoSuchElementException e) {
+	        io.writeLine("Employee not found");
+	    }
+   
+	}
 static void getDepartmentBudget(InputOutput io) {
-	
+	// TODO
 }
 static void getDepartments(InputOutput io) {
+	//TODO
 	
 }
 static void getManagersWithMostFactor(InputOutput io) {
+	// TODO
 	
 }
 }
