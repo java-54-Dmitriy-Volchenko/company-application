@@ -104,10 +104,14 @@ static void removeEmployee(InputOutput io) {
    
 	}
 static void getDepartmentBudget(InputOutput io) {
-	// TODO
+	 String department = io.readStringOptions("Enter department " + departments, "Wrong department", departments);
+     int budget = company.getDepartmentBudget(department);
+     io.writeLine("Department budget: " + budget +
+    		  " shekels");
 }
 static void getDepartments(InputOutput io) {
-	//TODO
+	 String[] departments = company.getDepartments();
+     io.writeLine("Departments: " + String.join(", ", departments));
 	
 }
 static void getManagersWithMostFactor(InputOutput io) {
