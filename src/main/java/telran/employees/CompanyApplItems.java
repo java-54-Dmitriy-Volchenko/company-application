@@ -115,7 +115,16 @@ static void getDepartments(InputOutput io) {
 	
 }
 static void getManagersWithMostFactor(InputOutput io) {
-	// TODO
+	 Manager[] managers = company.getManagersWithMostFactor();
+     if (managers.length == 0) {
+         io.writeLine("No managers in the company");
+     } else {
+         io.writeLine("Managers with the most factor:");
+         for (Manager manager : managers) {
+             io.writeLine(manager.toString());
+         }
+     }
+ }
 	
 }
-}
+
