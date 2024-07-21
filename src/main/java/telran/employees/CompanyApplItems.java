@@ -86,7 +86,7 @@ static void getEmployee( InputOutput io) {
 	    if (employee == null) {
 	        io.writeLine("Employee not found");
 	    } else {
-	        io.writeLine(employee.toString());
+	        io.writeLine(employee.getJSON());
 	    }
 }
 
@@ -121,7 +121,7 @@ static void getManagersWithMostFactor(InputOutput io) {
      } else {
          io.writeLine("Managers with the most factor:");
          for (Manager manager : managers) {
-             io.writeLine(manager.toString());
+             io.writeLine(manager.getJSON());
          }
      }
  }
