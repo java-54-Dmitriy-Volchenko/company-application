@@ -1,10 +1,13 @@
 package telran.employees;
 
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 import telran.view.InputOutput;
 import telran.view.Item;
+import telran.view.Menu;
+
 import static telran.employees.CompanyConfigProperties.*;
 
 public class CompanyApplItems {
@@ -26,19 +29,30 @@ public static List<Item> getCompanyItems(Company company,
 	
 }
 static void addEmployee(InputOutput io) {
-	Employee empl = readEmployee(io);
-	String type = io.readStringOptions("Enter employee type",
-			"Wrong Employee Type", new HashSet<String>
-	(List.of("WageEmployee", "Manager", "SalesPerson")));
-	Employee result = switch(type) {
-	case "WageEmployee" -> getWageEmployee(empl, io);
-	case "Manager" -> getManager(empl, io);
-	case "SalesPerson" -> getSalesPerson(empl, io);
-	default -> null;
+	Menu menu = new Menu("adding Employee of required Type", getAddEmployeeItems());
+	menu.perform(io);
+	io.writeLine("=".repeat(40));
+}
+
+private static Item[] getAddEmployeeItems() {
+	Item[] items = {
+			Item.of("add WageEmployee",
+					io -> addEmployeeItem(io, CompanyApplItems::getWageEmployee)),
+			Item.of("add SalesPerson", io -> addEmployeeItem(io, CompanyApplItems::getSalesPerson)),
+			Item.of("add Manager", io -> addEmployeeItem(io, CompanyApplItems::getManager)),
+			Item.ofExit()
 	};
+	return items;
+}
+static private void addEmployeeItem(InputOutput io,
+		BiFunction<Employee, InputOutput, Employee> actualAdding) {
+	Employee empl = readEmployee(io);
+	Employee result = actualAdding.apply(empl, io);
 	company.addEmployee(result);
 	io.writeLine("Employee has been added");
+	io.writeLine("=".repeat(40));
 }
+
 private static Employee getSalesPerson(Employee empl, InputOutput io) {
 	WageEmployee wageEmployee = (WageEmployee) getWageEmployee(empl, io);
 	float percents = io.readNumberRange("Enter percents", "Wrong percents value", MIN_PERCENT, MAX_PERCENT).floatValue();
