@@ -99,7 +99,7 @@ static void getEmployee(InputOutput io) {
 static void removeEmployee(InputOutput io) {
 	long id = readEmployeeId(io);
 	Employee empl = company.removeEmployee(id);
-	io.writeLine(empl);
+	io.writeLine(empl.getJSON());
 	io.writeLine("has been removed from the company\n");
 }
 static void getDepartmentBudget(InputOutput io) {
