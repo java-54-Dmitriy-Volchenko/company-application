@@ -13,6 +13,6 @@ float MIN_PERCENT = 0.1f;
 float MAX_PERCENT = 10.0f;
 long MIN_SALES = 500;
 long MAX_SALES = Integer.MAX_VALUE;
-long MIN_ID = 1000;
+long MIN_ID = 1;
 long MAX_ID = 9999;
 }
